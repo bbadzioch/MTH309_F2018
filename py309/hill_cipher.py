@@ -2,10 +2,10 @@ from sympy import *
 import numpy as np
 import string
 from pathlib import Path
+import requests
 
 
-supp_folder = Path("supplements")
-text_file =  supp_folder/"aphorisms.txt"
+text_samples =  requests.get("https://raw.githubusercontent.com/bbadzioch/MTH309_F2018/master/supplements/aphorisms.txt").text
 
 
 def show_encoding():
@@ -64,14 +64,13 @@ def choose_key():
 def make_cipher(s=None):
     global text_file
     
-    with open(text_file, 'r') as foo:
-        lines = foo.readlines()
+    lines = text_samples.split("\n")
     text = 'CLASSIFIED ' + np.random.choice(lines).strip()
     text = text + ' '*(((-1)*len(text))%3)
     nums = Matrix(char2num(text)).reshape(len(text)//3, 3).T
     A, AI = choose_key()
     cipher = [int(x) for x in list((A*nums).T)]
-    if s == 'show_all':
+    if s == 'show':
         return cipher, text, A, AI
     else:
         return cipher
