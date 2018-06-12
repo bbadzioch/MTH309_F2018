@@ -1,0 +1,10 @@
+linalg_sympy1
+linalg_sympy2
+interceptor
+matrix_transformations_exercises
+strang_house
+rotating_squares
+hill_ciphers
+hill_cipher_exercises
+error_correction
+perspective

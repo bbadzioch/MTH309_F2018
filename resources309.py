@@ -2,11 +2,13 @@ import requests
 import os
 
 
+url_root = "https://raw.githubusercontent.com/bbadzioch/MTH309_F2018/master/py309/"
+
 def get_resources(*flist):
 
-    url_root = "https://raw.githubusercontent.com/bbadzioch/MTH309_F2018/master/py309/"
+    global url_root
     cwd = os.getcwd()
-    py309 = cwd + "/py309/"
+    py309 = os.path.join(cwd,  "py309")
 
     if not os.path.isdir(py309):
         print("creating directory py309...", end="")
@@ -18,8 +20,8 @@ def get_resources(*flist):
         except:
             print("\n\nCONNECTION ERROR. Check your internet connection.")
             return None
-            
-        with open(py309 + "__init__.py", "w") as f:
+
+        with open(os.path.join(py309 , "__init__.py"), "w") as f:
             if r.status_code == requests.codes.ok:
                 f.write(r.text)
                 print("done.")
@@ -27,10 +29,9 @@ def get_resources(*flist):
                 f.write("#py309 package")
                 print("done, status code: {}.".format(r.status_code))
 
-       
 
     for fname in flist:
-        if not os.path.isfile(py309 + fname):
+        if not os.path.isfile(s.path.join(py309, fname)):
             print("Downloading "+ fname + "...", end="")
             try:
                 r = requests.get(url_root + fname)
@@ -39,16 +40,47 @@ def get_resources(*flist):
                 return None
             if not r.status_code == requests.codes.ok:
                 if r.status_code == 404:
-                    print("FILE NOT FOUND 404")   
-                else: 
+                    print("FILE NOT FOUND 404")
+                else:
                     print("Status code: {}.".format(r.status_code))
                 continue
-                          
-            with open(py309 + fname, "wb") as f:
+
+            with open(os.path.join(py309 , fname) , "wb") as f:
                 f.write(r.content)
             print("done.")
-    
+
     print("Resource check finished.")
-    
-    
-    
+
+def get_notebooks():
+
+    notebook_list = "notebook_list.txt"
+    cwd = os.getcwd()
+
+    try:
+        r = requests.get(url_root + notebook_list)
+    except:
+        print("\n\nCONNECTION ERROR. Check your internet connection.")
+        return None
+    for nname in r.text.split('\n').strip():
+        if nname == "":
+            continue
+        nname = nname + "ipynb"
+        if not os.path.isfile(os.path.join(cwd, nname)):
+            print("Downloading "+ nname + "...", end="")
+            try:
+                nr = requests.get(url_root + nname)
+            except requests.ConnectionError:
+                print("\n\nCONNECTION ERROR. Check your internet connection.")
+                return None
+            if not nr.status_code == requests.codes.ok:
+                if nr.status_code == 404:
+                    print("FILE NOT FOUND 404")
+                else:
+                    print("Status code: {}.".format(nr.status_code))
+                continue
+
+            with open(os.path.join(cwd , nname) , "wb") as f:
+                f.write(nr.content)
+            print("done.")
+
+    print("Download finished.")
