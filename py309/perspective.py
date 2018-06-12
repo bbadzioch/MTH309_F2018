@@ -155,3 +155,5 @@ def paste_image(background, img, corners):
     background_array[:, valid_homog_bool] =  img.reshape(-1, 3).T[:, img_indices]
     
     return background_array.T.reshape(brows, bcols, 3)
+
+
