@@ -1,12 +1,14 @@
 import requests
 import os
 
+url_root = "https://raw.githubusercontent.com/bbadzioch/MTH309_F2018/master/"
 
-url_root = "https://raw.githubusercontent.com/bbadzioch/MTH309_F2018/master/py309/"
 
 def get_resources(*flist):
 
     global url_root
+
+    url_root309 = url_root + "py309/"
     cwd = os.getcwd()
     py309 = os.path.join(cwd,  "py309")
 
@@ -16,7 +18,7 @@ def get_resources(*flist):
         print("done.")
         print("Downloading __init__.py...", end="")
         try:
-            r = requests.get(url_root + "__init__.py")
+            r = requests.get(url_root309 + "__init__.py")
         except:
             print("\n\nCONNECTION ERROR. Check your internet connection.")
             return None
@@ -31,10 +33,10 @@ def get_resources(*flist):
 
 
     for fname in flist:
-        if not os.path.isfile(s.path.join(py309, fname)):
+        if not os.path.isfile(os.path.join(py309, fname)):
             print("Downloading "+ fname + "...", end="")
             try:
-                r = requests.get(url_root + fname)
+                r = requests.get(url_root309 + fname)
             except requests.ConnectionError:
                 print("\n\nCONNECTION ERROR. Check your internet connection.")
                 return None
@@ -51,6 +53,9 @@ def get_resources(*flist):
 
     print("Resource check finished.")
 
+
+
+
 def get_notebooks():
 
     notebook_list = "notebook_list.txt"
@@ -61,10 +66,11 @@ def get_notebooks():
     except:
         print("\n\nCONNECTION ERROR. Check your internet connection.")
         return None
-    for nname in r.text.split('\n').strip():
+    for nname in r.text.split('\n'):
+        nname = nname.strip()
         if nname == "":
             continue
-        nname = nname + "ipynb"
+        nname = nname + ".ipynb"
         if not os.path.isfile(os.path.join(cwd, nname)):
             print("Downloading "+ nname + "...", end="")
             try:
