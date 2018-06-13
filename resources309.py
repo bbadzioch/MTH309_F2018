@@ -1,5 +1,7 @@
 import requests
-import os
+from os import getcwd, makedirs
+from os.path import join, isdir, isfile
+
 
 url_root = "https://raw.githubusercontent.com/bbadzioch/MTH309_F2018/master/"
 
@@ -9,12 +11,12 @@ def get_resources(*flist):
     global url_root
 
     url_root309 = url_root + "py309/"
-    cwd = os.getcwd()
-    py309 = os.path.join(cwd,  "py309")
+    cwd = getcwd()
+    py309 = join(cwd,  "py309")
 
-    if not os.path.isdir(py309):
+    if not isdir(py309):
         print("creating directory py309...", end="")
-        os.makedirs(py309)
+        makedirs(py309)
         print("done.")
         print("Downloading __init__.py...", end="")
         try:
@@ -23,7 +25,7 @@ def get_resources(*flist):
             print("\n\nCONNECTION ERROR. Check your internet connection.")
             return None
 
-        with open(os.path.join(py309 , "__init__.py"), "w") as f:
+        with open(join(py309 , "__init__.py"), "w") as f:
             if r.status_code == requests.codes.ok:
                 f.write(r.text)
                 print("done.")
@@ -33,7 +35,7 @@ def get_resources(*flist):
 
 
     for fname in flist:
-        if not os.path.isfile(os.path.join(py309, fname)):
+        if not isfile(join(py309, fname)):
             print("Downloading "+ fname + "...", end="")
             try:
                 r = requests.get(url_root309 + fname)
@@ -47,7 +49,7 @@ def get_resources(*flist):
                     print("Status code: {}.".format(r.status_code))
                 continue
 
-            with open(os.path.join(py309 , fname) , "wb") as f:
+            with open(join(py309 , fname) , "wb") as f:
                 f.write(r.content)
             print("done.")
 
@@ -59,7 +61,7 @@ def get_resources(*flist):
 def get_notebooks():
 
     notebook_list = "notebook_list.txt"
-    cwd = os.getcwd()
+    cwd = getcwd()
 
     try:
         r = requests.get(url_root + notebook_list)
@@ -71,7 +73,7 @@ def get_notebooks():
         if nname == "":
             continue
         nname = nname + ".ipynb"
-        if not os.path.isfile(os.path.join(cwd, nname)):
+        if not os.path.isfile(join(cwd, nname)):
             print("Downloading "+ nname + "...", end="")
             try:
                 nr = requests.get(url_root + nname)
@@ -85,7 +87,7 @@ def get_notebooks():
                     print("Status code: {}.".format(nr.status_code))
                 continue
 
-            with open(os.path.join(cwd , nname) , "wb") as f:
+            with open(join(cwd , nname) , "wb") as f:
                 f.write(nr.content)
             print("done.")
 
