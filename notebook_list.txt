@@ -2,6 +2,7 @@ linalg_sympy1
 linalg_sympy2
 interceptor
 matrix_transformations_exercises
+color_mixing_exercises
 strang_house
 rotating_squares
 hill_ciphers

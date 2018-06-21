@@ -1,0 +1,19 @@
+Name: Aaron Durrence (aarondur)
+Assignment: Project Report 10: First Digits, Last Digits
+Date Submitted: Wednesday, December 6, 2017 12:58:56 PM EST
+Current Grade: Needs Grading
+
+Submission Field:
+There is no student submission text data for this assignment.
+
+Comments:
+There are no student comments for this assignment.
+
+Files:
+	Original filename: R10_50071858.ipynb
+	Filename: Project Report 10  First Digits, Last Digits_aarondur_attempt_2017-12-06-12-58-56_R10_50071858.ipynb
+
+
+
+jacobalm@buffalo.edu, jchayes@buffalo.edu, bmmcmaho@buffalo.edu, hcm3@buffalo.edu, aeliyara@buffalo.edu, jingweis@buffalo.edu, artaboni@buffalo.edu, ttsering@buffalo.edu, tdyoung@buffalo.edu, jzhang45@buffalo.edu, zhengzhu@buffalo.edu
+
