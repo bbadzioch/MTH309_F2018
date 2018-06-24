@@ -16,7 +16,6 @@ def show_encoding():
     for n in range(len(alphabet)):
         print("{:>3}".format(n), end='')
 
-   
     
 def num2char(numlist):
     N = 20
@@ -36,7 +35,6 @@ def num2char(numlist):
                 print("{:>4}".format(c), end = ''),
             print('\n')
             chars = []
-
 
 
 def char2num(s):
@@ -61,19 +59,28 @@ def choose_key():
     return A, A.inv()
 
 
-def make_cipher(s=None):
-    global text_file
-    
-    lines = text_samples.split("\n")
-    text = 'CLASSIFIED ' + np.random.choice(lines).strip()
+def hill_encoder(A=None, text=None,s=None):
+    if text == None:
+            lines = text_samples.split("\n")
+            text = np.random.choice(lines).strip()
     text = text + ' '*(((-1)*len(text))%3)
     nums = Matrix(char2num(text)).reshape(len(text)//3, 3).T
-    A, AI = choose_key()
+    if A != None:
+        AI = A.inv()
+    else:
+        A, AI = choose_key()
     cipher = [int(x) for x in list((A*nums).T)]
     if s == 'show':
         return cipher, text, A, AI
     else:
         return cipher
+
+    
+def make_cipher(s=None):
+    lines = text_samples.split("\n")
+    text = 'CLASSIFIED ' + np.random.choice(lines).strip()
+    return hill_encoder(s=s, text=text)
+
 
 
 def hill_decoder(K, cipher):
