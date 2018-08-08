@@ -73,7 +73,7 @@ def get_notebooks():
         if nname == "":
             continue
         nname = nname + ".ipynb"
-        if not os.path.isfile(join(cwd, nname)):
+        if not isfile(join(cwd, nname)):
             print("Downloading "+ nname + "...", end="")
             try:
                 nr = requests.get(url_root + nname)

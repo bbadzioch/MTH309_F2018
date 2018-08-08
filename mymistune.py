@@ -1029,8 +1029,6 @@ class Markdown(object):
 
     def output(self, text, rules=None):
         self.tokens = self.block(text, rules)
-        #PRINT
-        print(self.tokens)
         self.tokens.reverse()
 
         self.inline.setup(self.block.def_links, self.block.def_footnotes)
