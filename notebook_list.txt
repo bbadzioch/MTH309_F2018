@@ -1,5 +1,4 @@
-linalg_sympy1
-linalg_sympy2
+linalg_sympy
 interceptor
 matrix_transformations_exercises
 color_mixing_exercises
