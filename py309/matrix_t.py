@@ -46,8 +46,10 @@ def matrix_t(A, house = None, save = ""):
         xmin = min(np.min(ns[0]), np.min(s[0]), xmin)
         ymin = min(np.min(ns[1]), np.min(s[1]), ymin)
         ax1.fill(*list(s), c)
-        if d == 0:   
-            ax2.plot(*list(ns), c)
+        if np.array_equal(A, np.zeros((2,2))):
+            ax2.plot(*list(ns), 'o', color='orangered', ms = 10)
+        elif d == 0:   
+            ax2.plot(*list(ns), c, lw = 4)
         else:
             ax2.fill(*list(ns), c)        
     ax1.plot([0, 0], [ymin, ymax], 'k')
