@@ -6,7 +6,7 @@ import numpy as np
 
 def matrix_t(A, house = None, save = ""):
     A = np.array(A).astype(np.float64)
-
+    d = np.linalg.det(A)
     if house == None:
         wall = np.array([[0,0], [1,0], [1,1], [0,1]]).T
         roof = np.array([[-0.1,1], [0.1, 1.2], [0.1, 1.5], [0.3, 1.5], [0.3, 1.4], [0.5,1.6], [1.1,1]]).T
@@ -19,12 +19,12 @@ def matrix_t(A, house = None, save = ""):
     plt.tight_layout()
     plt.style.use('seaborn')
     
-    ms = (r"A = [[ "
-          + "{:.3f}".format(A[0,0]).rstrip('0').rstrip('.') + ",   " 
-          + "{:.3f}".format(A[0,1]).rstrip('0').rstrip('.') + " ], [ " 
-          + "{:.3f}".format(A[1,0]).rstrip('0').rstrip('.') + ",   " 
-          + "{:.3f}".format(A[0,0]).rstrip('0').rstrip('.') + " ]]" 
-         )
+    #ms = (r"A = [[ "
+    #      + "{:.3f}".format(A[0,0]).rstrip('0').rstrip('.') + ",   " 
+    #      + "{:.3f}".format(A[0,1]).rstrip('0').rstrip('.') + " ], [ " 
+    #      + "{:.3f}".format(A[1,0]).rstrip('0').rstrip('.') + ",   " 
+    #      + "{:.3f}".format(A[0,0]).rstrip('0').rstrip('.') + " ]]" 
+    #     )
     #plt.suptitle(ms)
     ax1 = plt.axes([0.05, 0.05, 0.35, 0.9])
     ax1.axis('equal')
@@ -45,8 +45,11 @@ def matrix_t(A, house = None, save = ""):
         ymax = max(np.max(ns[1]), np.max(s[1]), ymax)
         xmin = min(np.min(ns[0]), np.min(s[0]), xmin)
         ymin = min(np.min(ns[1]), np.min(s[1]), ymin)
-        ax2.fill(*list(ns), c)
         ax1.fill(*list(s), c)
+        if d == 0:   
+            ax2.plot(*list(ns), c)
+        else:
+            ax2.fill(*list(ns), c)        
     ax1.plot([0, 0], [ymin, ymax], 'k')
     ax1.plot([xmin, xmax], [0, 0], 'k')
     ax2.plot([0, 0], [ymin, ymax], 'k')
