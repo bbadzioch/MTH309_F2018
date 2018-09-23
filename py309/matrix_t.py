@@ -6,7 +6,7 @@ from math import sin, cos, pi
 #from matplotlib import rcParams
 #rcParams['text.usetex'] = True
 
-def matrix_t(A, house = None, save = ""):
+def matrix_t(A, house = None, save = "", return_val=False):
     A = np.array(A).astype(np.float64)
     d = np.linalg.det(A)
     if house == None:
@@ -62,7 +62,8 @@ def matrix_t(A, house = None, save = ""):
         plt.savefig(save, pad_inches = 0.5)
     plt.show() 
     
-    return nhouse 
+    if return_val:
+        return nhouse 
 
 
 
