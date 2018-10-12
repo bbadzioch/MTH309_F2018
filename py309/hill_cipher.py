@@ -16,14 +16,14 @@ def show_encoding():
     for n in range(len(alphabet)):
         print("{:>3}".format(n), end='')
 
-    
+
 def num2char(numlist):
     N = 20
     chars = []
     for i, n in enumerate(numlist):
-        n = int(n)
+        n = round(n)
         print("{:>4}".format(n), end = ''),
-        if n == 0: 
+        if n == 0:
             chars.append('_')
         elif n < 0 or n > 26:
             chars.append("\N{FULL BLOCK}")
@@ -52,7 +52,7 @@ def char2num(s):
 
 
 def choose_key():
-    d = 0 
+    d = 0
     while d not in  [1, -1]:
         A = Matrix(np.random.randint(0, 4, (3,3)))
         d = A.det()
@@ -75,7 +75,7 @@ def hill_encoder(A=None, text=None,s=None):
     else:
         return cipher
 
-    
+
 def make_cipher(s=None):
     lines = text_samples.split("\n")
     text = 'CLASSIFIED ' + np.random.choice(lines).strip()
@@ -86,4 +86,3 @@ def make_cipher(s=None):
 def hill_decoder(K, cipher):
     m =  Matrix(cipher).reshape(len(cipher)//3, 3).T
     return num2char([int(x) for x in list((K*m).T)])
-
